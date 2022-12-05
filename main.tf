@@ -1,6 +1,7 @@
 module "service_principal" {
+  source = "ptonini/service-principal/azuread"
+  version = "~> 1.0.0"
   count = var.service_principal == null ? 1 : 0
-  source = "github.com/ptonini/terraform-azuread-service-principal"
   name = var.service_principal_name
   create_password = true
   resource_accesses = var.service_principal_resource_accesses
@@ -8,7 +9,8 @@ module "service_principal" {
 }
 
 module "auth_backend" {
-  source = "github.com/ptonini/terraform-vault-auth-backend"
+  source = "ptonini/auth-backend/vault"
+  version = "~> 1.0.0"
   type = "azure"
   path = var.path
 }
